@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./RowPost.css";
-import axios from "../../axios";
 import { imageUrl, API_KEY } from "../../constants/constants";
 import Youtube from "react-youtube";
+import axios from "../../axios";
+import "./RowPost.css";
 
 function RowPost(props) {
   const [movies, setMovies] = useState([]);
@@ -16,6 +16,7 @@ function RowPost(props) {
       })
       .catch((err) => {
         alert("Network Error");
+        console.log(err.message)
       });
   }, [props.url]);
 
