@@ -1,0 +1,60 @@
+.row{
+    margin-left: 20px;
+    margin-top: 20px;
+    color:#fff;
+}
+
+.posters{
+    display: flex;
+    padding: 20px 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.posters::-webkit-scrollbar{
+    display: none;
+}
+.poster-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+.poster-container .movie_name {
+    margin-top: 10px;
+    cursor: pointer;
+}
+.poster, .smallPoster{
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+.poster{
+    max-height: 200px;
+}
+.smallPoster{
+    max-height: 150px;
+}
+
+.poster:hover , .smallPoster:hover{
+    transform: scale(1.05);
+}
+
+.vid_container{
+    position: relative;
+    width: 100%;
+    background-color: #000;
+}
+
+.vid_container .vid_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+.vid_container .vid_close_btn:hover{
+    background-color: rgb(224, 1, 1);
+}
