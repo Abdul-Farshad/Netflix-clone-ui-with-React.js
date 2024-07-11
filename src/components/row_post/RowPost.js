@@ -8,6 +8,7 @@ function RowPost(props) {
   const [movies, setMovies] = useState([]);
   const [urlId, setUrlId] = useState("");
   const [showVideo, setShowVideo] = useState(false);
+
   useEffect(() => {
     axios
       .get(props.url)
@@ -16,7 +17,7 @@ function RowPost(props) {
       })
       .catch((err) => {
         alert("Network Error");
-        console.log(err.message)
+        console.log(err.message);
       });
   }, [props.url]);
 
@@ -24,19 +25,19 @@ function RowPost(props) {
     height: "390",
     width: "100%",
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
     },
   };
 
   const handleMovieClick = (id) => {
-    console.log("id", id);
     axios
       .get(`movie/${id}/videos?api_key=${API_KEY}`)
       .then((response) => {
         if (response.data.results.length !== 0) {
-          setUrlId(response.data.results[0]);
+          const video = response.data.results[0];
+          setUrlId(video);
           setShowVideo(true);
+          props.setCurrentVideo({ key: video.key, row: props.title });
         } else {
           console.log("Array empty!");
         }
@@ -49,6 +50,7 @@ function RowPost(props) {
   const handleCloseBtn = () => {
     setShowVideo(false);
     setUrlId("");
+    props.setCurrentVideo(null);
   };
   return (
     <div className="row">
@@ -76,14 +78,18 @@ function RowPost(props) {
           );
         })}
       </div>
-      {urlId && showVideo && (
-        <div className="vid_container">
-          <button onClick={handleCloseBtn} className="vid_close_btn">
-            Close
-          </button>
-          <Youtube videoId={urlId.key} opts={opts} />
-        </div>
-      )}
+      {urlId &&
+        showVideo &&
+        props.currentVideo &&
+        props.currentVideo.key === urlId.key &&
+        props.currentVideo.row === props.title && (
+          <div className="vid_container">
+            <button onClick={handleCloseBtn} className="vid_close_btn">
+              Close
+            </button>
+            <Youtube videoId={urlId.key} opts={opts} />
+          </div>
+        )}
     </div>
   );
 }
